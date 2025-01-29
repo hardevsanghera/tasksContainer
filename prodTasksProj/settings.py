@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
+from environ import Env
+env = Env()
+Env.read_env()
+ENVIRONMENT=env('ENVIRONMENT', default='production')
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,16 +27,41 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
+#SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
+SECRET_KEY=env('SECRET_KEY')
+ENCRYPT_KEY=env('ENCRYPT_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = True
-DEBUG = bool(int(os.environ.get('DEBUG', 0)))
+#DEBUG = bool(int(os.environ.get('DEBUG', 0)))
+if ENVIRONMENT == 'development':
+   DEBUG = True
+   ALLOWED_HOSTS = ['*']
+   #ALLOWED_HOSTS = [env('DEV_ALLOWED_HOSTS')]
+   DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
+else:
+   DEBUG = False
+   ALLOWED_HOSTS = ['127.0.0.1']
+   #ALLOWED_HOSTS = env('PROD_ALLOWED_HOSTS')
+   #ALLOWED_HOSTS.extend(ALLOWED_HOSTS.split(','))
+   #DATABASES = {
+   #   'default': {
+   #     'ENGINE': env('ENGINE'),
+   #     'NAME': env('NAME'),
+   #     'USER': env('USER'),
+   #     'PASSWORD': env('PASSWORD'),
+   #     'HOST': env('HOST'),
+   #     'PORT': env('PORT'),
+   #     'OPTIONS': {env('OPTIONS')
+   #     },
+   # },
+#}
 
-ALLOWED_HOSTS = []
-ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
-if ALLOWED_HOSTS_ENV:
-   ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
+#ALLOWED_HOSTS = []
+#ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
+#if ALLOWED_HOSTS_ENV:
+#   ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
 
 
 # Application definition
