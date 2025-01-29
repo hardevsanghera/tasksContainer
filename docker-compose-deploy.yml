@@ -1,0 +1,25 @@
+#version: '3.7'
+
+services:
+  prodtasksproj:
+    build:
+      context: .
+    volumes:
+      - static_data:/vol/web
+    environment:
+      - SECRET_KEY=samplesecret123
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+      - DEBUG=0
+
+  nginx:
+    build:
+      context: ./nginx
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "8080:8080"
+    depends_on:
+      - prodtasksproj
+
+volumes:
+  static_data:
