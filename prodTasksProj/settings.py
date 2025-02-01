@@ -40,23 +40,25 @@ if ENVIRONMENT == 'development':
    ALLOWED_HOSTS = ['*']
    #ALLOWED_HOSTS = [env('DEV_ALLOWED_HOSTS')]
    DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
-else:
+elif ENVIRONMENT == 'production':
    DEBUG = False
-   ALLOWED_HOSTS = ['127.0.0.1']
+   ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
    #ALLOWED_HOSTS = env('PROD_ALLOWED_HOSTS')
    #ALLOWED_HOSTS.extend(ALLOWED_HOSTS.split(','))
-   #DATABASES = {
-   #   'default': {
-   #     'ENGINE': env('ENGINE'),
-   #     'NAME': env('NAME'),
-   #     'USER': env('USER'),
-   #     'PASSWORD': env('PASSWORD'),
-   #     'HOST': env('HOST'),
-   #     'PORT': env('PORT'),
-   #     'OPTIONS': {env('OPTIONS')
-   #     },
-   # },
-#}
+   DATABASES = {
+      'default': {
+        'ENGINE': env('ENGINE'),
+        'NAME': env('NAME'),
+        'USER': env('USER'),
+        'PASSWORD': env('PASSWORD'),
+        'HOST': env('HOST'),
+        'PORT': env('PORT'),
+        'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'
+        },
+     },
+    }
+print("DATABASES:")
+print(DATABASES)
 
 #ALLOWED_HOSTS = []
 #ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
@@ -112,20 +114,20 @@ WSGI_APPLICATION = 'prodTasksProj.wsgi.application'
 
 #DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'tasks',
-        'USER': 'SA',
-        'PASSWORD': 'mySQLabcd0',
-        'HOST': '192.168.0.55',
-        'PORT': '1433',
-        'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
-            'extra_params': "Encrypt=no" #TrustServerCertificate=no
-        },
-    },
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'mssql',
+#        'NAME': 'tasks',
+#        'USER': 'SA',
+#        'PASSWORD': 'mySQLabcd0',
+#        'HOST': '192.168.0.55',
+#        'PORT': '1433',
+#        'OPTIONS': {
+#            'driver': 'ODBC Driver 18 for SQL Server',
+#            'extra_params': "Encrypt=no" #TrustServerCertificate=no
+#        },
+#    },
+#}
 
 
 
