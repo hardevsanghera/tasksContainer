@@ -53,7 +53,8 @@ elif ENVIRONMENT == 'production':
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
         'PORT': env('PORT'),
-        'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'
+ #       'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'
+        'OPTIONS': env('OPTIONS')
         },
      },
     }
