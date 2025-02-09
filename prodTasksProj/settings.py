@@ -36,11 +36,12 @@ ENCRYPT_KEY=env('ENCRYPT_KEY')
 #DEBUG = True
 #DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 if ENVIRONMENT == 'development':
+   print("====In development", flush=True)
    DEBUG = True
    ALLOWED_HOSTS = ['*']
-   #ALLOWED_HOSTS = [env('DEV_ALLOWED_HOSTS')]
    DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
 elif ENVIRONMENT == 'production':
+   print("====In production", flush=True)
    DEBUG = False
    ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
    #ALLOWED_HOSTS = env('PROD_ALLOWED_HOSTS')
@@ -53,13 +54,12 @@ elif ENVIRONMENT == 'production':
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
         'PORT': env('PORT'),
- #       'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'
-        'OPTIONS': env('OPTIONS')
+        'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'},
+#        'OPTIONS': {env('OPTIONS')},
         },
-     },
-    }
-print("DATABASES:")
-print(DATABASES)
+     }
+#print("DATABASES:")
+#print(DATABASES)
 
 #ALLOWED_HOSTS = []
 #ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
