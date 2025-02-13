@@ -16,9 +16,10 @@ To deploy the app to Kubernetes:
 
 ## Files
 
-Filename                        Description
-.env.dist                       Copy and edit as .env for your requirements
-requirements.txt                Python modules to use for ProdTasksProj
+| Filename | Description | 
+| -------- | ----------- |
+| .env.dist | Copy and edit as .env for your requirements |
+| requirements.txt | Python modules to use for ProdTasksProj |
 del-k8s-app.sh                  Delete ProdTasksProj deployments, services and PVC
 start-k8s-app.sh                Start/Deploy ProdTasksProj deployments, services and PVC
 Dockerfile                      Build image for application part of ProdTasksProj
