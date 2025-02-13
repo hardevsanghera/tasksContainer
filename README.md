@@ -20,16 +20,17 @@ To deploy the app to Kubernetes:
 | -------- | ----------- |
 | .env.dist | Copy and edit as .env for your requirements |
 | requirements.txt | Python modules to use for ProdTasksProj |
-del-k8s-app.sh                  Delete ProdTasksProj deployments, services and PVC
-start-k8s-app.sh                Start/Deploy ProdTasksProj deployments, services and PVC
-Dockerfile                      Build image for application part of ProdTasksProj
-docker-compose.yml              Compose application locally
-docker-compose-deploy.yml       Compose deploy nginx and the app locally (doesn 'tnot pull image from Docker Hub)  Build images using Docker files first
-docker-compose-deploy-img.yml   Compose deploy nginx and the app locall (pulls image from Docker Hub) Build/push images using Docker files first or use my images
-prodtasksproj-deployment.yaml   k8s Django App deployment
-prodtasks-service.yaml          k8s Service for above
-nginx-deployment.yaml           k8s nginx deployment
-nginx-service.yaml              k8s Service for above
-static-data-persistentvolumeclaim.yaml k8s PVC - the app doesn't have any data it wants to persist really!
+| del-k8s-app.sh  |                Delete ProdTasksProj deployments, services and PVC
+| start-k8s-app.sh |               Start/Deploy ProdTasksProj deployments, services and PVC
+| Dockerfile  |                    Build the image for application part of ProdTasksProj
+| nginx/Dockerfile |  Build the image for the nginx part of the application
+| docker-compose.yml |             Compose application locally
+| docker-compose-deploy.yml |       Compose deploy nginx and the app locally (doesn 'tnot pull image from Docker Hub)  Build images using Docker files first
+| docker-compose-deploy-img.yml |   Compose deploy nginx and the app locall (pulls image from Docker Hub) Build/push images using Docker files first or use my images
+| prodtasksproj-deployment.yaml |  k8s Django App deployment
+| prodtasks-service.yaml |         k8s Service for above
+| nginx-deployment.yaml  |         k8s nginx deployment
+| nginx-service.yaml     |         k8s Service for above
+| static-data-persistentvolumeclaim.yaml | k8s PVC - the app doesn't have any data it wants to persist really!
 
 hardev@nutanix.com Feb '25
