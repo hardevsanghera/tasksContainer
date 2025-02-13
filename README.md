@@ -3,15 +3,16 @@ Deploy 'Tasks' Django App to Kubernetes
 
 This is targeted at deploying to Kubernetes, however, the interim files/YAML for creating the Docker images and deploying locally with Dockerfiles and Docker Compose YAML are all included.
 
-Setting the ENVIRONMENT varible (an environment variable called ENVIRONMENT !) to 'development' uses a local sqllite3 in memory database, setting it to 'production' will use an MSSQL database (it expects a Windows VM with MSSQL as the target).
+Setting the ENVIRONMENT variable (an environment variable called ENVIRONMENT !) to 'development' uses a local sqllite3 in memory database, setting it to 'production' will use an MSSQL database (it expects a Windows VM with MSSQL as the target).
 
 The Django Project is called __ProdTasksProj__
 
 To deploy the app to Kubernetes:
+- Edit the env section of __prodtasksproj-deployment.yaml__ to suit your needs, you can also edit the other k8s yaml files (See table below) to change port numbers - be careful!
 ```sh
    $ ./start-k8s-app.sh
 ```
-   Point your browser at http://external-IP-of-nginx-pod:32323
+   Point your browser at http://external-IP-of-nginx-pod:32323 to get to the deployed app.
 
 ## Files
 
