@@ -15,7 +15,7 @@ import os
 from environ import Env
 env = Env()
 Env.read_env()
-ENVIRONMENT=env('ENVIRONMENT', default='production')
+ENVIRONMENT=env('ENVIRONMENT', default='development')
 
 
 
@@ -33,17 +33,15 @@ ENCRYPT_KEY=env('ENCRYPT_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-#DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 if ENVIRONMENT == 'development':
+   print("=====In development")
    DEBUG = True
    ALLOWED_HOSTS = ['*']
-   #ALLOWED_HOSTS = [env('DEV_ALLOWED_HOSTS')]
    DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
 elif ENVIRONMENT == 'production':
+   print("======In production")
    DEBUG = False
-   ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-   #ALLOWED_HOSTS = env('PROD_ALLOWED_HOSTS')
+   ALLOWED_HOSTS = ['*']
    #ALLOWED_HOSTS.extend(ALLOWED_HOSTS.split(','))
    DATABASES = {
       'default': {
@@ -53,19 +51,9 @@ elif ENVIRONMENT == 'production':
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
         'PORT': env('PORT'),
- #       'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'
-        'OPTIONS': env('OPTIONS')
+        'OPTIONS': {'driver':'ODBC Driver 18 for SQL Server', 'extra_params':'Encrypt=no'},
         },
-     },
-    }
-print("DATABASES:")
-print(DATABASES)
-
-#ALLOWED_HOSTS = []
-#ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
-#if ALLOWED_HOSTS_ENV:
-#   ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
-
+     }
 
 # Application definition
 
@@ -108,29 +96,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'prodTasksProj.wsgi.application'
-
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-#DATABASES = { 'default': { 'ENGINE': 'django.db.backends.sqlite3', 'NAME': os.path.join(BASE_DIR, 'db.sqllite3'), } }
-
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'mssql',
-#        'NAME': 'tasks',
-#        'USER': 'SA',
-#        'PASSWORD': 'mySQLabcd0',
-#        'HOST': '192.168.0.55',
-#        'PORT': '1433',
-#        'OPTIONS': {
-#            'driver': 'ODBC Driver 18 for SQL Server',
-#            'extra_params': "Encrypt=no" #TrustServerCertificate=no
-#        },
-#    },
-#}
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

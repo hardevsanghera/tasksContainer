@@ -1,5 +1,4 @@
 FROM ubuntu:24.04
-#FROM ubuntu/python:3.12-24.04_stable
 
 ENV PATH="/scripts:${PATH}"
 
@@ -39,7 +38,4 @@ RUN chown -R webadmin:webadmin /prodTasksProj
 RUN chmod -R 755 /vol/web
 USER webadmin
 
-#EXPOSE 8000
-
 CMD ["entrypoint.sh"]
-#CMD [sh -c "python3 manage.py migrate"]
