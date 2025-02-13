@@ -25,13 +25,27 @@ spec:
       containers:
         - env:
             - name: ALLOWED_HOSTS
-              value: 127.0.0.1,localhost
+              value: "*"
             - name: DEBUG
-              value: "1"
+              value: "0"
             - name: ENVIRONMENT
               value: development
             - name: SECRET_KEY
               value: samplesecret123
+            - name: ENCRYPT_KEY
+              value: LifesAPieceOfHitWhenYouLookAtIt
+            - name: ENGINE
+              value: mssql
+            - name: NAME
+              value: tasks
+            - name: USER
+              value: SA
+            - name: PASSWORD
+              value: mySQLabcd0
+            - name: HOST
+              value: 192.168.0.55
+            - name: PORT
+              value: "1433"
           image: docker.io/hsanghera/hardev-prodtasksproj:latest
           name: prodtasksproj
           ports:
