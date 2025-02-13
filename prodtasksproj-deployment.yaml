@@ -33,7 +33,7 @@ spec:
             - name: SECRET_KEY
               value: samplesecret123
             - name: ENCRYPT_KEY
-              value: LifesAPieceOfHitWhenYouLookAtIt
+              value: SampleKey123
             - name: ENGINE
               value: mssql
             - name: NAME
@@ -41,7 +41,7 @@ spec:
             - name: USER
               value: SA
             - name: PASSWORD
-              value: mySQLabcd0
+              value: password
             - name: HOST
               value: 192.168.0.55
             - name: PORT
