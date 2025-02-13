@@ -8,7 +8,7 @@ Setting the ENVIRONMENT variable (an environment variable called ENVIRONMENT !) 
 The Django Project is called __ProdTasksProj__
 
 To deploy the app to Kubernetes:
-- Edit the env section of __prodtasksproj-deployment.yaml__ to suit your needs, you can also edit the other k8s yaml files (See table below) to change port numbers - be careful!
+- Edit the env section of __prodtasksproj-deployment.yaml__ to suit your needs, you can also edit the other k8s yaml files (See table below) to change eg. port numbers/passwords/other - be careful!
 ```sh
    $ ./start-k8s-app.sh
 ```
