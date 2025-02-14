@@ -9,7 +9,7 @@ Setting the ENVIRONMENT variable (an environment variable called ENVIRONMENT !) 
 The Django Project is called __ProdTasksProj__
 
 To deploy the app to Docker:
-- Edit the env section of __docker-compose-deploy.yml__ to suit your needs. 
+- Edit the env section of __docker-compose-deploy.yml__ and/or copy/edit __.env.dist__ to __.env__ to suit your needs. 
 ```sh
    $ docker compose -f docker-compose-deploy.yml up
 ```
