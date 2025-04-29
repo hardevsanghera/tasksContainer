@@ -4,12 +4,6 @@ Deploy 'Tasks' Django App to Docker and/or Kubernetes
 
 __Switch branch to k8s for the version to deploy the app to Kubernetes__
 
-Images to use to deploy containers:
-AMD64: 
-ARM64:
-
-I know, tags!  Ran out of patience to build a dual architecture setup.  Using the docker compose yamls will built the images from scratch - then tag and push as you like.
-
 Setting the ENVIRONMENT variable (an environment variable called ENVIRONMENT !) to 'development' uses a local sqllite3 in memory database, setting it to 'production' will use an MSSQL database (it expects a Windows VM with MSSQL as the target).
 
 The Django Project is called __ProdTasksProj__
