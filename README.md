@@ -21,7 +21,8 @@ To deploy the app to Kubernetes:
 | .env.dist |                      Copy and edit as .env for your requirements |
 | requirements.txt |               Python modules to use for ProdTasksProj |
 | del-k8s-app.sh  |                Delete ProdTasksProj deployments, services and PVC |
-| start-k8s-app.sh |               Start/Deploy ProdTasksProj deployments, services and PVC |
+| start-k8s-app.sh |               Start/Deploy ProdTasksProj deployments, services and PV/PVC |
+| stop=k8s-app.sh |                Stop/Delete ProdTasksProj deployments, services and PV/PVC |
 | Dockerfile  |                    Build the image for application part of ProdTasksProj |
 | nginx/Dockerfile |               Build the image for the nginx part of the application |
 | docker-compose.yml |             Compose application locally |
@@ -31,6 +32,7 @@ To deploy the app to Kubernetes:
 | prodtasks-service.yaml |         k8s Service for above |
 | nginx-deployment.yaml  |         k8s nginx deployment |
 | nginx-service.yaml     |         k8s Service for above |
-| static-data-persistentvolumeclaim.yaml | k8s PVC - the app doesn't have any data it wants to persist really!
+| static-data-persistentvolumeclaim.yaml | k8s PVC - the app doesn't have any data it wants to persist really! |
+| static-pv.yaml | The PV for the app |
 
 hardev@nutanix.com Feb '25
