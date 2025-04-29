@@ -23,7 +23,7 @@ spec:
         io.kompose.service: nginx
     spec:
       containers:
-        - image: docker.io/hsanghera/hardev-nginx:latest
+        - image: docker.io/hsanghera/hardev-nginx-amd64:latest
           name: nginx
           ports:
             - containerPort: 8080
