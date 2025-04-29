@@ -20,6 +20,7 @@ To deploy the app to Kubernetes:
 ```
    Point your browser at http://external-IP-of-nginx-pod:32323 to get to the deployed app.  You will be auto redirected to the /tasks path, get to the admin panel by using http://external-IP-of-nginx-pod:32323/admin
    For the admin panel the userid is webadmin and the password is the same as the password for the SA user you set in the env section.
+   
    <img src="tasks-iphone.jpg" 
      width="200" 
      height="auto" />
