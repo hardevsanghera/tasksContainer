@@ -3,6 +3,12 @@ Deploy 'Tasks' Django App to Kubernetes
 
 This is targeted at deploying to Kubernetes, however, the interim files/YAML for creating the Docker images and deploying locally with Dockerfiles and Docker Compose YAML are all included.
 
+Images to use to deploy containers:
+AMD64: docker.io/hsanghera/hardev-prodtasksproj-amd64:latest, docker.io/hsanghera/hardev-nginx-amd64:latest
+ARM64: docker.io/hsanghera/hardev-prodtasksproj:latest, docker.io/hsanghera/hardev-nginx:latest
+
+I know, tags!  Ran out of patience to build a dual architecture setup.  Using the docker compose yamls will built the images from scratch - then tag and push as you like.
+
 Setting the ENVIRONMENT variable (an environment variable called ENVIRONMENT !) to 'development' uses a local sqllite3 in memory database, setting it to 'production' will use an MSSQL database (it expects a Windows VM with MSSQL as the target).
 
 The Django Project is called __ProdTasksProj__
