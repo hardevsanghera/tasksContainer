@@ -15,6 +15,7 @@ To deploy the app to Docker locally:
 ```
    Point your browser at http://localhost:8080 to get to the deployed app.  You will be auto redirected to the /tasks path, get to the admin panel by using http://localhost:8080/admin
    For the admin, no superuser is created (a user called webadmin IS created for the Kubernetes deployment).
+   
       <img src="tasks-iphone.jpg" 
      width="200" 
      height="auto" />
