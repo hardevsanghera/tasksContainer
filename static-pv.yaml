@@ -8,7 +8,7 @@ spec:
   capacity:
     storage: 100Mi #  Capacity matching the PVC's request
   accessModes:
-    - ReadWriteOnce #  Access mode matching the PVC
+    - ReadWriteMany #  Access mode matching the PVC
   persistentVolumeReclaimPolicy: Delete #  Define what happens to the volume when the PVC is deleted
   hostPath: #  Example: Use hostPath for local storage (for testing only, NOT for production)
     path: /tmp #  Path to the directory on the node
