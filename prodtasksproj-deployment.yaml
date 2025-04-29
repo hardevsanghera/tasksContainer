@@ -46,7 +46,7 @@ spec:
               value: 192.168.25.25
             - name: PORT
               value: "1433"
-          image: docker.io/hsanghera/hardev-prodtasksproj:latest
+          image: docker.io/hsanghera/hardev-prodtasksproj-amd64:latest
           name: prodtasksproj
           ports:
             - containerPort: 8000
