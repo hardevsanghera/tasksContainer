@@ -1,3 +1,4 @@
+# Order is important
 kubectl -f prodtasksproj-service.yaml delete
 kubectl -f nginx-service.yaml delete
 kubectl -f prodtasksproj-deployment.yaml delete
