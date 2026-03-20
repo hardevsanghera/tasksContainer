@@ -31,7 +31,7 @@ To deploy the app to Kubernetes:
 | .env.dist |                      Copy and edit as .env for your requirements |
 | requirements.txt |               Python modules to use for ProdTasksProj |
 | start-k8s-app.sh |               Start/Deploy ProdTasksProj deployments, services and PV/PVC |
-| stop=k8s-app.sh |                Stop/Delete ProdTasksProj deployments, services and PV/PVC |
+| stop-k8s-app.sh |                Stop/Delete ProdTasksProj deployments, services and PV/PVC |
 | Dockerfile  |                    Build the image for application part of ProdTasksProj |
 | nginx/Dockerfile |               Build the image for the nginx part of the application |
 | docker-compose.yml |             Compose application locally |
