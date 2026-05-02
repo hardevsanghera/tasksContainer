@@ -1,0 +1,7 @@
+5826141 (HEAD -> k8s, origin/k8s) Simplify kubectl get command to fetch all resources
+08e1398 Update static-data-persistentvolumeclaim.yaml
+b3dff05 Add storageClassName to static-pv.yaml
+6b32821 Update CSRF_TRUSTED_ORIGINS and image version
+0bd9ebd Update Docker image for prodtasksproj deployment
+32aeea7 Update README with CSRF settings and deployment info
+bb0422e edits to support *.labs.kodekloud.com for CSRF avoidance

@@ -1,0 +1,100 @@
+diff --git a/README.md b/README.md
+index ef74015..631125a 100644
+--- a/README.md
++++ b/README.md
+@@ -5,6 +5,7 @@ This is targeted at deploying to Kubernetes, however, the interim files/YAML for
+ 
+ Images to use to deploy containers:
+ AMD64: docker.io/hsanghera/hardev-prodtasksproj-amd64:latest, docker.io/hsanghera/hardev-nginx-amd64:latest
++       docker.io/hsanghera/custom-prodtasksproj:v0.2 (this has the settings for unblocking CSRF if using kodekloud "View Port" facility in their kubernetes playground)
+ ARM64: docker.io/hsanghera/hardev-prodtasksproj:latest, docker.io/hsanghera/hardev-nginx:latest
+ 
+ I know, tags!  Ran out of patience to build a dual architecture setup.  Using the docker compose yamls will built the images from scratch - then tag and push as you like.
+@@ -37,7 +38,7 @@ To deploy the app to Kubernetes:
+ | docker-compose.yml |             Compose application locally |
+ | docker-compose-deploy.yml |      Compose deploy nginx and the app locally (doesn't pull image from Docker Hub)  Build images using Docker files first |
+ | docker-compose-deploy-img.yml |  Compose deploy nginx and the app locall (pulls image from Docker Hub) Build/push images using Docker files first or use my  images |
+-| prodtasksproj-deployment.yaml |  k8s Django App deployment |
++| prodtasksproj-deployment.yaml |  k8s Django App deployment.  If you are using a kodekloud playground then the *.labs.kodekloud.com wildcard has been added to avoid CSRF blocks when using the "View Port" facility.  If you check out k8s branch then the continer image is set to docker.io/hsanghera/custom-prodtasksproj:v0.2 |
+ | prodtasks-service.yaml |         k8s Service for above |
+ | nginx-deployment.yaml  |         k8s nginx deployment |
+ | nginx-service.yaml     |         k8s Service for above |
+diff --git a/prodTasksProj/settings.py b/prodTasksProj/settings.py
+index d270461..08f7b8f 100644
+--- a/prodTasksProj/settings.py
++++ b/prodTasksProj/settings.py
+@@ -17,6 +17,17 @@ env = Env()
+ Env.read_env()
+ ENVIRONMENT=env('ENVIRONMENT', default='development')
+ 
++# Fetch the variable from Kubernetes
++k8s_trusted_origin = os.environ.get('CSRF_TRUSTED_ORIGINS')
++
++# Only assign if the variable is present and has content
++if k8s_trusted_origin:
++    # .strip() removes accidental spaces or newline characters
++    # We wrap it in a list because Django expects an iterable
++    CSRF_TRUSTED_ORIGINS = [k8s_trusted_origin.strip()]
++else:
++    # Fallback to prevent Django from throwing an error
++    CSRF_TRUSTED_ORIGINS = []
+ 
+ 
+ # Build paths inside the project like this: BASE_DIR / 'subdir'.
+diff --git a/prodtasksproj-deployment.yaml b/prodtasksproj-deployment.yaml
+index 6a9135a..ffef192 100644
+--- a/prodtasksproj-deployment.yaml
++++ b/prodtasksproj-deployment.yaml
+@@ -46,7 +46,9 @@ spec:
+               value: 192.168.25.25
+             - name: PORT
+               value: "1433"
+-          image: docker.io/hsanghera/hardev-prodtasksproj-amd64:latest
++            - name: CSRF_TRUSTED_ORIGINS
++              value: "https://*.labs.kodekloud.com"
++          image: docker.io/hsanghera/custom-prodtasksproj:v0.5
+           name: prodtasksproj
+           ports:
+             - containerPort: 8000
+diff --git a/scripts/entrypoint.sh b/scripts/entrypoint.sh
+index c8ec9d0..9e24eaf 100644
+--- a/scripts/entrypoint.sh
++++ b/scripts/entrypoint.sh
+@@ -7,4 +7,4 @@ python3 manage.py makemigrations --noinput
+ python3 manage.py migrate --noinput
+ DJANGO_SUPERUSER_PASSWORD=$PASSWORD python3 manage.py createsuperuser --username webadmin --email webadmin\@email.com --noinput
+ 
+-uwsgi --socket :8000 --master --enable-threads --module prodTasksProj.wsgi
++uwsgi --socket :8000 --master --enable-threads --buffer-size=8192 --module prodTasksProj.wsgi
+diff --git a/start-k8s-app.sh b/start-k8s-app.sh
+index 9f3b7ee..03bd807 100755
+--- a/start-k8s-app.sh
++++ b/start-k8s-app.sh
+@@ -6,5 +6,4 @@ kubectl -f static-pv.yaml apply
+ kubectl -f static-data-persistentvolumeclaim.yaml apply
+ #kubectl -f prodtasksproj-deployment.yaml apply
+ kubectl -f nginx-deployment.yaml apply
+-kubectl get all
+-kubectl get pvc
++kubectl get all,pvc,pv
+diff --git a/static-data-persistentvolumeclaim.yaml b/static-data-persistentvolumeclaim.yaml
+index b2c62ba..c06816c 100644
+--- a/static-data-persistentvolumeclaim.yaml
++++ b/static-data-persistentvolumeclaim.yaml
+@@ -10,3 +10,4 @@ spec:
+   resources:
+     requests:
+       storage: 100Mi
++  storageClassName: local-path
+diff --git a/static-pv.yaml b/static-pv.yaml
+index e2e8cc6..ee0a887 100644
+--- a/static-pv.yaml
++++ b/static-pv.yaml
+@@ -5,6 +5,7 @@ metadata:
+   labels:
+     io.kompose.service: static-data #  Label matching the PVC's label
+ spec:
++  storageClassName: local-path
+   capacity:
+     storage: 100Mi #  Capacity matching the PVC's request
+   accessModes:

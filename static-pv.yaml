@@ -10,5 +10,6 @@ spec:
   accessModes:
     - ReadWriteMany #  Access mode matching the PVC
   persistentVolumeReclaimPolicy: Delete #  Define what happens to the volume when the PVC is deleted
+  storageClassName: local-store
   hostPath: #  Example: Use hostPath for local storage (for testing only, NOT for production)
     path: /tmp #  Path to the directory on the node

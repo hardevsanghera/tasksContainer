@@ -5,6 +5,7 @@ metadata:
     io.kompose.service: static-data
   name: static-data
 spec:
+  storageClassName: local-store
   accessModes:
     - ReadWriteMany
   resources:
