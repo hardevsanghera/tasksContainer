@@ -36,12 +36,11 @@ kubectl port-forward svc/nginx 8080:8080
 Then open:
 http://localhost:8080
 
-Use NodePort directly (if reachable from your host/network)
+
+Or use NodePort directly (if reachable from your host/network)
+Example (your IPs may well be different, try kubectl get nodes -o wide) 
+
 http://172.18.0.2:32323
-or
-http://172.18.0.3:32323
-or
-http://172.18.0.4:32323
 
 ## Files
 
