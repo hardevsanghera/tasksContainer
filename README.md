@@ -24,6 +24,25 @@ To deploy the app to Kubernetes:
    <img src="tasks-iphone.jpg" 
      width="200" 
      height="auto" />
+
+## Simple Connect to App on my KIND cluster
+
+Use one of these access methods:
+
+Quickest: port-forward from your machine
+```sh
+kubectl port-forward svc/nginx 8080:8080
+```
+Then open:
+http://localhost:8080
+
+Use NodePort directly (if reachable from your host/network)
+http://172.18.0.2:32323
+or
+http://172.18.0.3:32323
+or
+http://172.18.0.4:32323
+
 ## Files
 
 | Filename | Description | 
