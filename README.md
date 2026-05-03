@@ -18,7 +18,7 @@ To deploy the app to Kubernetes:
 ```sh
    $ ./start-k8s-app.sh
 ```
-   Point your browser at http://external-IP-of-nginx-pod:32323 to get to the deployed app.  You will be auto redirected to the /tasks path, get to the admin panel by using http://external-IP-of-nginx-pod:32323/admin
+   Point your browser at http://extsernal-IP-of-nginx-pod:32323 to get to the deployed app.  You will be auto redirected to the /tasks path, get to the admin panel by using http://external-IP-of-nginx-pod:32323/admin
    For the admin panel the userid is webadmin and the password is the same as the password for the SA user you set in the env section.
    
    <img src="tasks-iphone.jpg" 
@@ -39,31 +39,8 @@ http://localhost:8080
 
 Or use NodePort directly (if reachable from your host/network)
 Example (your IPs may well be different, try kubectl get nodes -o wide) 
-
+s
 http://172.18.0.2:32323
-
-## Access with Ingress on KIND
-
-1. Install the NGINX Ingress controller:
-   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
-
-2. Wait for the controller to be Ready:
-   kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
-
-3. Deploy the app as normal:
-   ./start-k8s-app.sh
-
-4. Add a local host entry for the ingress host name:
-   127.0.0.1 tasks.local
-
-5. If your KIND cluster was not created with port mappings for 80/443, run a local port-forward:
-   kubectl -n ingress-nginx port-forward service/ingress-nginx-controller 8080:80
-
-6. Open the app:
-   http://tasks.local:8080/tasks
-
-If your KIND cluster was created with host port mappings for 80/443, you can use:
-http://tasks.local/tasks
 
 ## Files
 
@@ -82,7 +59,6 @@ http://tasks.local/tasks
 | prodtasks-service.yaml |         k8s Service for above |
 | nginx-deployment.yaml  |         k8s nginx deployment |
 | nginx-service.yaml     |         k8s Service for above |
-| tasks-ingress.yaml |              k8s Ingress routing host tasks.local to nginx service |
 | static-data-persistentvolumeclaim.yaml | k8s PVC - the app doesn't have any data it wants to persist really! |
 | static-pv.yaml | The PV for the app |
 
