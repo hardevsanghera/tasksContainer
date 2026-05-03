@@ -42,6 +42,29 @@ Example (your IPs may well be different, try kubectl get nodes -o wide)
 
 http://172.18.0.2:32323
 
+## Access with Ingress on KIND
+
+1. Install the NGINX Ingress controller:
+   kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/kind/deploy.yaml
+
+2. Wait for the controller to be Ready:
+   kubectl wait --namespace ingress-nginx --for=condition=ready pod --selector=app.kubernetes.io/component=controller --timeout=180s
+
+3. Deploy the app as normal:
+   ./start-k8s-app.sh
+
+4. Add a local host entry for the ingress host name:
+   127.0.0.1 tasks.local
+
+5. If your KIND cluster was not created with port mappings for 80/443, run a local port-forward:
+   kubectl -n ingress-nginx port-forward service/ingress-nginx-controller 8080:80
+
+6. Open the app:
+   http://tasks.local:8080/tasks
+
+If your KIND cluster was created with host port mappings for 80/443, you can use:
+http://tasks.local/tasks
+
 ## Files
 
 | Filename | Description | 
@@ -59,6 +82,7 @@ http://172.18.0.2:32323
 | prodtasks-service.yaml |         k8s Service for above |
 | nginx-deployment.yaml  |         k8s nginx deployment |
 | nginx-service.yaml     |         k8s Service for above |
+| tasks-ingress.yaml |              k8s Ingress routing host tasks.local to nginx service |
 | static-data-persistentvolumeclaim.yaml | k8s PVC - the app doesn't have any data it wants to persist really! |
 | static-pv.yaml | The PV for the app |
 
