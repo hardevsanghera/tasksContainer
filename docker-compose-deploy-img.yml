@@ -2,7 +2,7 @@
 
 services:
   prodtasksproj:
-    image: docker.io/hsanghera/hardev-prodtasksproj:latest
+    image: docker.io/hsanghera/hardev-prodtasksproj:v2 #fall back to :latest for old layout
     volumes:
       - static_data:/vol/web
     environment:
